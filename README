@@ -1,1 +1,41 @@
 Just fooling around with combinatory logic and lambda calculus in JS.
+
+Should work in both SpiderMonkey and Rhino.
+
+abstraction_elimination.js:
+
+parse() parses a subset of lambda calculus expressions. The resulting
+object will contain two fields: expr and str. str is the remainder of the
+string after parsing, and expr is an AST. The AST object has methods T()
+to perform beta-reduction and dump() to dump get the string
+representation. E.g.:
+
+js> load('abstraction_elimination.js');                                 
+js> parse('(\\x. (\\y. y (\\z. (\\t. z (\\x. x) x))))').expr.T().dump();
+B(C(I))(B(B(K))(C(C(I)(I))))
+
+combinators_and_monads.js:
+
+A rather silly library for monadic computations. The MFList and MCList
+constructors should be self-explanatory. Just for the kicks, the internal
+implementations are pure combinatory logic. MFList is implemented on the
+lists-as-their-own-folds model, while MCList is a more traditional
+Lisp-style singly-linked list with V combinator as a cons cell. Note that
+catamorphisms for MCList rely on lazyness through closures with explicit
+evaluation forcing. I'm unaware of a better approach within the bounds of
+JavaScript.
+
+There are several helper function for working with Church representations
+of booleans and integers.
+
+tst() is a function for testing the whole load of it.
+
+Note that, generally speaking, naive chaining of binds is not
+particularly useful. Think about:
+
+\a b -> a >>= \a'-> b >>= \b' -> [(a', b')]
+
+The -> syntax obscures it, but it's equivalent to:
+
+\a b -> a >>= (\a'-> b >>= \b' -> [(a', b')])
+
