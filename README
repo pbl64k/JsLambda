@@ -7,8 +7,8 @@ abstraction_elimination.js:
 parse() parses a subset of lambda calculus expressions. The resulting
 object will contain two fields: expr and str. str is the remainder of the
 string after parsing, and expr is an AST. The AST object has methods T()
-to perform beta-reduction and dump() to get the string representation.
-E.g.:
+to perform abstraction elimination and dump() to get the string
+representation. E.g.:
 
 js> load('abstraction_elimination.js');                                 
 js> parse('(\\x. (\\y. y (\\z. (\\t. z (\\x. x) x))))').expr.T().dump();
