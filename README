@@ -14,6 +14,10 @@ js> load('abstraction_elimination.js');
 js> parse('(\\x. (\\y. y (\\z. (\\t. z (\\x. x) x))))').expr.T().dump();
 B(C(I))(B(B(K))(C(C(I)(I))))
 
+Surprisingly, the abstraction elimination algorithm turned out to be of
+some use, as I translated it almost directly to Python during ICFPC 2011
+(with a more permissive lambda calculus expression parser).
+
 combinators_and_monads.js:
 
 A rather silly library for monadic computations. The MFList and MCList
